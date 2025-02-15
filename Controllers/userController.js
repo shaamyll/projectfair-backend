@@ -42,7 +42,7 @@ exports.loginAPI=async(req,res)=>{
 
     if(existingUser){
 
-        const token = jwt.sign({userid:existingUser._id},process.env.jwtKey)
+        const token = jwt.sign({userId:existingUser._id},process.env.jwtKey)
         console.log(token);
         
         res.status(200).json({currentUser:existingUser,token})

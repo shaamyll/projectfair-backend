@@ -14,11 +14,12 @@ router.post('/api/login',userController.loginAPI)
 
 router.post('/api/addProject',jwtMiddleware,multerMiddleware.single('projectImg'),projectController.addProjectAPI)
 
-router.get('/api/getAllUserProject',jwtMiddleware,projectController.getAllUserProjectAPI)
+router.get('/api/getAllUserProjects',jwtMiddleware,projectController.getAllUserProjectAPI)
 
 router.get('/api/getHomeProjects',projectController.getHomeProjectAPI)
 
-router.get('/api/getUserProject',projectController.getUserProjetAPI)
+//TO get Particular User Projects
+router.get('/api/getParticularUserProject',jwtMiddleware,projectController.getParticularUserProjetAPI)
 
 router.put('/api/editProject/:projectId',jwtMiddleware,multerMiddleware.single('projectImg'),projectController.editProjectAPI)
 

@@ -37,8 +37,8 @@ exports.addProjectAPI = async (req, res) => {
 
 exports.getHomeProjectAPI = async (req, res) => {
     try {
-        const response = await projects.find().limit(3)
-        res.status(200).json(response)
+        const homeProjects = await projects.find().limit(3)
+        res.status(200).json(homeProjects)
     }
     catch (err) {
         res.status(406).json(err)
@@ -51,9 +51,19 @@ exports.getHomeProjectAPI = async (req, res) => {
 
 
 exports.getAllUserProjectAPI = async (req, res) => {
+    const searchKey = req.query.search
+    console.log(searchKey);
+
+    const query = {
+        title:{
+            $regex:searchKey,
+            $options:"i"
+        }
+    }
+    
     try {
-        const response = await projects.find()
-        res.status(200).json(response)
+        const allProjects = await projects.find(query)
+        res.status(200).json(allProjects)
     }
     catch (err) {
         res.status(406).json(err)
@@ -65,12 +75,14 @@ exports.getAllUserProjectAPI = async (req, res) => {
 
 
 
-exports.getUserProjetAPI = async (req, res) => {
+exports.getParticularUserProjetAPI = async (req, res) => {
+    console.log("Inside User Project APi");
+
     const userId = req.payload
 
     try {
-        const response = await projects.find({ userId })
-        res.status(200).json(response)
+        const userProjects = await projects.find({ userId })
+        res.status(200).json(userProjects)
     }
     catch (err) {
         res.status(406).json(err)
